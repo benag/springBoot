@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import todoapp.models.Employee;
 import todoapp.classes.Task;
+import todoapp.classes.Report;
 import todoapp.models.Manager;
 import todoapp.repositories.EmployeeRepository;
 import org.apache.commons.io.IOUtils;
@@ -88,6 +89,24 @@ public class EmployeeController {
         employeeData.addTask(task);
         System.out.println(employeeData.toString());
         Employee updatedEmployee = employeeRepository.save(employeeData);
+        System.out.println(updatedEmployee.toString());
+        return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/report", method=RequestMethod.PUT)
+    public ResponseEntity<Employee> addTasktoEmployee(@RequestBody Map<String, String> payload) throws java.io.IOException {
+        String bossId = payload.get("bossId");
+        String reportText = payload.get("reportText");
+        Report report = new Report(reportText);
+        System.out.println(report.toString());
+        Employee bossData = employeeRepository.findOne(bossId);
+        if(bossData == null) {
+            System.out.println("not found employee");
+            return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
+        }
+        bossData.addReport(report);
+        System.out.println(bossData.toString());
+        Employee updatedEmployee = employeeRepository.save(bossData);
         System.out.println(updatedEmployee.toString());
         return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
     }
