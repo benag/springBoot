@@ -6,9 +6,12 @@ import java.util.Date;
  */
 public class Report {
 
+    public Report() {}
+
     public Report(String text){
         this.text = text;
     }
+
     private String text;
 
     private Date createdAt = new Date();
@@ -16,6 +19,10 @@ public class Report {
     public String getText() { return this.text;}
 
     public void setText(String text) { this.text = text;}
+
+    public Date getCreatedAt() { return this.createdAt;}
+
+    public void setCreatedAt(Date d) { this.createdAt = d;}
 
     @Override
     public String toString() {

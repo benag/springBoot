@@ -8,22 +8,30 @@ import java.text.*;
  */
 public class Task {
 
-    public Task(String text, String dateStr){
+    public Task () {}
+
+    public Task(String text, String dateStr, String assignDate){
         try{
             this.taskText = text;
             DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
             Date dueDate = (Date)formatter.parse(dateStr);
             this.dueDate = dueDate;
+            if (assignDate != null){
+                Date assign  = (Date)formatter.parse(assignDate);
+                this.assignDate = assign;
+            }
         }catch(java.text.ParseException e){
             System.out.println(e);
         }
 
     }
+
     public Task(Task t){
         this.taskText = t.taskText;
-
         this.dueDate = t.dueDate;
+        this.assignDate = t.assignDate;
     }
+
     private String taskText = "";
 
     private Date dueDate;

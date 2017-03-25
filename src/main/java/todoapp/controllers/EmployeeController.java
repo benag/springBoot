@@ -67,6 +67,7 @@ public class EmployeeController {
         }
         System.out.println("found");
         Employee subordinate = employeeRepository.findOne(addEmployeeId);
+        subordinate.setBoss(employeeData);
         employeeData.addEmployee(subordinate);
         System.out.println(employeeData.toString());
         Employee updatedEmployee = employeeRepository.save(employeeData);
@@ -79,7 +80,7 @@ public class EmployeeController {
         String employeeId = (String)payload.get("employeeId");
         String taskText = (String)payload.get("taskText");
         String dueDate = (String)payload.get("dueDate");
-        Task task = new Task(taskText,dueDate);
+        Task task = new Task(taskText,dueDate, null);
         System.out.println(task.toString());
         Employee employeeData = employeeRepository.findOne(employeeId);
         if(employeeData == null) {
@@ -94,7 +95,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value="/report", method=RequestMethod.PUT)
-    public ResponseEntity<Employee> addTasktoEmployee(@RequestBody Map<String, String> payload) throws java.io.IOException {
+    public ResponseEntity<Employee> addReport(@RequestBody Map<String, String> payload) throws java.io.IOException {
         String bossId = payload.get("bossId");
         String reportText = payload.get("reportText");
         Report report = new Report(reportText);

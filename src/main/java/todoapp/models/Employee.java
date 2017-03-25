@@ -64,6 +64,8 @@ public class Employee  {
 
     public void addTask (Task t) {this.tasks.add(t);}
 
+    public void addReport (Report r) {this.reports.add(r);}
+
     public void addEmployee(Employee emp) { this.employees.add(emp);}
 
     public List<Employee> getEmployees() { return this.employees;}
@@ -73,6 +75,14 @@ public class Employee  {
     public Employee getBoss() { return this.boss;}
 
     public void setBoss (Employee emp){ this.boss = emp;}
+
+    public void setTasks (ArrayList<Task> t){ this.tasks = t;}
+
+    public List<Task> getTasks() { return this.tasks;}
+
+    public void setReports (ArrayList<Report> r){ this.reports = r;}
+
+    public List<Report> getReports() { return this.reports;}
 
     @Override
     public String toString() {
