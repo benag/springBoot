@@ -1,0 +1,38 @@
+
+
+<div ng-init="init()">
+    <div class="row">
+        <h1>Employees</h1>
+    </div>
+
+    <div class=row">
+        <button ng-click="add()" class="btn btn-primary btn-lg pull-right" type="submit">+ Add</button>
+    </div>
+    <br/>
+    <br/>
+    <div class="row profession-table">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Position</th>
+                    <th>View</th>
+                </tr>
+                <tr ng-repeat="employee in employees track by $index">
+                    <th>{{employee.firstName}}</th>
+                    <th>{{employee.lastName}}</th>
+                    <th>{{employee.position}}</th>
+                    <th>
+                        <button ng-click="oneEmployee($index)" class="btn btn-primary">View</button>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row arrows">
+        <a> <<< </a>
+        <a> >>> </a>
+
+    </div>
+</div>

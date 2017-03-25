@@ -1,0 +1,41 @@
+
+<a ng-click="back()"> << </a>
+
+
+
+<div>
+    <div class="row profile">
+        <div class="col-md-2">
+            <img src="../dashboard/img/placeholder.jpg" class="img-responsive" alt="Responsive image">
+        </div>
+        <div class="col-md-10">
+            <div>
+                <span>Name:</span><span>{{employee.firstName}}</span><span>{{employee.lastName}}</span>
+            </div>
+            <div>
+                <span>Position:</span><span>{{employee.position}}</span>
+            </div>
+            <hr>
+            <div>
+                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span>{{employee.boss.lastName}}</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div>My Tasks:</div>
+        <div ng-repeat="task in employee.tasks track by $index">
+            <span>{{task.text}}</span> <span>{{task.dueDate}}</span>
+
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <span>My subordinates</span>
+            <span><button class="btn btn-primary">Add Subordinate</button></span>
+        </div>
+        <div ng-repeat="sub in employees track by $index">
+            <span>{{sub.firstName}}</span><span>{{sub.lastName}}</span><span>{{sub.position}}</span> <span><button class="btn btn-primary">Assign Task</button></span>
+        </div>
+    </div>
+</div>

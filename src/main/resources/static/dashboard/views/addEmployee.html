@@ -1,0 +1,129 @@
+
+<a ng-click="back()"> << </a>
+<div id="companyinfo">
+    <!--<h3>Status </h3>-->
+    <!--<div class="form-group">-->
+        <!--<label for="company.status"> Status: </label>-->
+        <!--<input id ="company.status" class="form-control" type="text" ng-model="pro.status">-->
+    <!--</div>-->
+    <h3>Role </h3>
+    <div class="form-group">
+        <label> Role: </label>
+        <ui-select ng-model="pro.role">
+            <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="role in (roles | filter: $select.search) track by role.id">
+                <span ng-bind="role.name"></span>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+
+    <h3>Company Info</h3>
+    <div class="form-group">
+        <label for="company.name"> Name: </label>
+        <input id ="company.name" class="form-control" type="text" ng-model="pro.companyInfo.name">
+        <label for="company.description">Description: </label>
+        <input id ="company.description" class="form-control" type="text" ng-model="pro.companyInfo.description">
+        <label for="company.phone">Main Phone: </label>
+        <input id ="company.phone" class="form-control" type="text" ng-model="pro.companyInfo.mainPhone">
+        <label for="company.morephone">More Phones: </label>
+        <input id ="company.morephone" class="form-control" type="text" ng-model="pro.companyInfo.morePhones">
+        <label for="company.mainfax">Main Fax: </label>
+        <input id ="company.mainfax" class="form-control" type="text" ng-model="pro.companyInfo.fax">
+        <label for="company.email">Email: </label>
+        <input id ="company.email" class="form-control" type="text" ng-model="pro.companyInfo.email">
+
+        <label > Service Conditions: </label>
+        <ui-select ng-model="pro.serviceCondition">
+            <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="condition in (serviceConditions | filter: $select.search) track by condition.id">
+                <span ng-bind="condition.name"></span>
+            </ui-select-choices>
+        </ui-select>
+
+        <label > Payment Conditions: </label>
+        <ui-select ng-model="pro.paymentCondition">
+            <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="paycondition in (paymentConditions | filter: $select.search) track by paycondition.id">
+                <span ng-bind="paycondition.name"></span>
+            </ui-select-choices>
+        </ui-select>
+
+        <label> Status: </label>
+        <ui-select ng-model="pro.status">
+            <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="status in (statuses | filter: $select.search) track by status.id">
+                <span ng-bind="status.name"></span>
+            </ui-select-choices>
+        </ui-select>
+
+
+        <label >Img: </label>
+        <br/>
+        <div class="btn btn-primary" ngf-select="loadFiles($files)" multiple="multiple">Upload</div>
+        <img id="companyimg" ngf-src="file" height="100" width="100">
+        <br><br>
+        <label >Contract: </label>
+        <br/>
+        <div class="btn btn-primary" ngf-select="loadContractFiles($files)" multiple="multiple">Upload</div>
+        <img id="companyContract" ngf-src="contractfile" height="100" width="100">
+        <br><br>
+    </div>
+</div>
+<hr>
+<h3>Contact Info</h3>
+<div id="contactinfo">
+    <div class="form-group">
+        <label for="contact.firstname">First Name: </label>
+        <input class="form-control" id="contact.firstname" type="text" ng-model="pro.contactInfo.firstName">
+        <label for="contact.lastname">Last Name: </label>
+        <input class="form-control" id="contact.lastname" type="text" ng-model="pro.contactInfo.lastName">
+        <label for="contact.phone">Phone: </label>
+        <input class="form-control" id="contact.phone" type="text" ng-model="pro.contactInfo.phone">
+        <!--<label >Img: </label>-->
+        <!--<br/>-->
+        <!--<div class="btn btn-primary" ngf-select="uploadContactFiles($files)" multiple="multiple">Upload</div>-->
+        <!--<img id="contactimg" class="pull-right" ngf-src="contactfile" height="100" width="100">-->
+        <!--<br><br>-->
+    </div>
+</div>
+<hr>
+<h3>Geo</h3>
+<div id="geo">
+    <div class="form-group">
+        <!--<label for="geo.lt">lt: </label>-->
+        <!--<input class="form-control" id="geo.lt" type="text" ng-model="pro.companyInfo.geo.ln">-->
+        <!--<label for="geo.ln">ln:</label>-->
+        <!--<input class="form-control" id="geo.ln" type="text" ng-model="pro.companyInfo.geo.lt">-->
+        <label for="geo.r">Radius:</label>
+        <input class="form-control" id="geo.r" type="text" ng-model="pro.companyInfo.geo.r">
+        <label for="geo.address">Addess:</label>
+        <input class="form-control" id="geo.address" type="text" g-places-autocomplete ng-model="addressObj" />
+        <!--<input class="form-control" id="geo.address" type="text" ng-model="pro.companyInfo.geo.address">-->
+
+    </div>
+</div>
+<hr>
+<h3>Credit Info</h3>
+<div id="credit">
+    <div class="form-group">
+        <label for="credit.number">Credit Number: </label>
+        <input class="form-control" id="credit.number" type="text" ng-model="pro.credit.number">
+        <label for="credit.date">Date</label>
+        <input class="form-control" id="credit.date" type="text" ng-model="pro.credit.date">
+        <label for="credit.cvs">CVS</label>
+        <input class="form-control" id="credit.cvs" type="text" ng-model="pro.credit.cvs">
+    </div>
+</div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" ng-click="addpro()" class="btn btn-primary">Add</button>
+</div>
