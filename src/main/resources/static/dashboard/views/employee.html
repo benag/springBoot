@@ -3,29 +3,32 @@
 
 
 
-<div>
-    <div class="row profile">
+<div class="one-employee">
+    <div class="row profile-row">
         <div class="col-md-2">
             <img src="../dashboard/img/placeholder.jpg" class="img-responsive" alt="Responsive image">
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9 col-md-offset-1">
             <div>
-                <span>Name:</span><span>{{employee.firstName}}</span><span>{{employee.lastName}}</span>
+                <span>Name:</span><span>{{employee.firstName}}</span><span class="last">{{employee.lastName}}</span>
             </div>
             <div>
-                <span>Position:</span><span>{{employee.position}}</span>
+                <span>Position:</span><span class="position">{{employee.position}}</span>
             </div>
-            <hr>
+            <hr class="hr">
             <div>
-                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span>{{employee.boss.lastName}}</span>
+                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span>
             </div>
 
         </div>
     </div>
-    <div class="row">
+    <div class="row tasks-row">
         <div>My Tasks:</div>
-        <div ng-repeat="task in employee.tasks track by $index">
-            <span>{{task.text}}</span> <span>{{task.dueDate}}</span>
+        <div class="task-box">
+            <div ng-repeat="task in employee.tasks track by $index">
+                <span>{{task.taskText}}</span> <span class="last">{{task.dueDate}}</span>
+            </div>
+
 
         </div>
     </div>
