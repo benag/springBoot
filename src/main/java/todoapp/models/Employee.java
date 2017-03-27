@@ -1,46 +1,43 @@
 package todoapp.models;
-import todoapp.classes.Worker;
-import todoapp.classes.Task;
-import todoapp.classes.Report;
-import todoapp.classes.Worker;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Size;
+
 /**
  * Created by ben on 24/03/17.
  */
 @Document(collection="employees")
-public class Employee  {
+public class Employee implements Worker{
 
     @Id
     private String id;
 
-//    @NotBlank
-//    @Size(max=250)
-//    @Indexed(unique=true)
-
-    private Employee boss;
+    private Manager boss;
 
     private String firstName;
 
     private String position;
 
-    private ArrayList<Task>  tasks = new ArrayList<>();
-
-    private ArrayList<Report>  reports = new ArrayList<Report>();
-
-    private ArrayList<Employee> employees = new ArrayList<Employee>();
+    private List<Task>  tasks = new ArrayList<>();
 
     private String lastName;
 
     private Date createdAt = new Date();
+
+    public Employee(){}
+
+    public Employee(String f, String l, String p){
+        this.firstName = f;
+        this.lastName = l;
+        this.position = p;
+    }
 
     public String getId() {
         return id;
@@ -64,37 +61,18 @@ public class Employee  {
 
     public void addTask (Task t) {this.tasks.add(t);}
 
-    public void addReport (Report r) {this.reports.add(r);}
+    public Manager getBoss() { return this.boss;}
 
-    public void addEmployee(Employee emp) { this.employees.add(emp);}
-
-    public List<Employee> getEmployees() { return this.employees;}
-
-    public void setEmployees(List<Employee> emp) { this.employees = (ArrayList)emp;}
-
-    public Employee getBoss() { return this.boss;}
-
-    public void setBoss (Employee emp){ this.boss = emp;}
+    public void setBoss (Manager emp){ this.boss = emp;}
 
     public void setTasks (ArrayList<Task> t){ this.tasks = t;}
 
     public List<Task> getTasks() { return this.tasks;}
 
-    public void setReports (ArrayList<Report> r){ this.reports = r;}
-
-    public List<Report> getReports() { return this.reports;}
-
     @Override
     public String toString() {
-        String employeesString = "";
-        Integer length = (Integer)employees.size();
-        String lengthS = new String(length.toString());
-        for (Employee e : employees) {
-            employeesString = employeesString + e.toString();
-        }
         return String.format(
-                "Todo[id=%s, firstName='%s', position='%s', lengthS='%s', employees='%s']",
-                id, firstName, position, lengthS, employeesString);
+                "Todo[id=%s, firstName='%s', position='%s']",
+                getId(), getFirstName(), getPosition());
     }
-
 }

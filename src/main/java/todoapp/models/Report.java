@@ -1,20 +1,19 @@
-package todoapp.classes;
+package todoapp.models;
 
 import java.util.Date;
-/**
- * Created by ben on 25/03/17.
- */
+
 public class Report {
 
-    public Report() {}
+    private String text;
+
+    private Date createdAt = new Date();
+
+     public Report() {}
 
     public Report(String text){
         this.text = text;
     }
 
-    private String text;
-
-    private Date createdAt = new Date();
 
     public String getText() { return this.text;}
 

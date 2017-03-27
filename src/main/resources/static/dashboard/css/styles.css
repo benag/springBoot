@@ -960,6 +960,14 @@ a:hover {
     padding-left:50px;
     padding-right:50px;
 }
+
+.subordinates-row{
+    margin-top:50px;
+    margin-left:50px;
+    padding-top:15px;
+    padding-left:50px;
+    padding-right:50px;
+}
 .task-box{
     border:1px solid black;
     min-height:200px;
@@ -968,6 +976,16 @@ a:hover {
     padding:25px;
 
 }
+.subordinate-box{
+    border:1px solid black;
+    min-height:200px;
+    width:100%;
+    margin-top:10px;
+    padding:25px;
+}
 .hr{
     background-color:black;
+}
+.task-last{
+    margin-left:300px;
 }

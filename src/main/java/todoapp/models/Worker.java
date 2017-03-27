@@ -1,26 +1,9 @@
-package todoapp.classes;
-
-import java.util.ArrayList;
-import java.util.Date;
+package todoapp.models;
 
 /**
  * Created by ben on 24/03/17.
  */
 public interface Worker {
-
-     String id = "";
-
-     String firstName = "";
-
-     String lastName = "";
-
-     String position = "";
-
-     Date createdAt = null;
-
-     ArrayList<Task> tasks = null;
-
-     ArrayList<Worker> employees = null;
 
      String getId();
 
@@ -39,6 +22,4 @@ public interface Worker {
      void setPosition(String pos);
 
      void addTask (Task t);
-
-     void addEmployee(Worker worker);
 }

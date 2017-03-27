@@ -1,4 +1,4 @@
-package todoapp.classes;
+package todoapp.models;
 
 import java.util.Date;
 import java.text.*;
@@ -8,7 +8,19 @@ import java.text.*;
  */
 public class Task {
 
+    private String taskText = "";
+
+    private Date dueDate;
+
+    private Date assignDate = new Date();
+
     public Task () {}
+
+    public Task(Task t){
+        this.taskText = t.taskText;
+        this.dueDate = t.dueDate;
+        this.assignDate = t.assignDate;
+    }
 
     public Task(String text, String dateStr, String assignDate){
         try{
@@ -26,17 +38,6 @@ public class Task {
 
     }
 
-    public Task(Task t){
-        this.taskText = t.taskText;
-        this.dueDate = t.dueDate;
-        this.assignDate = t.assignDate;
-    }
-
-    private String taskText = "";
-
-    private Date dueDate;
-
-    private Date assignDate = new Date();
 
     public String getTaskText() {return this.taskText;}
 
