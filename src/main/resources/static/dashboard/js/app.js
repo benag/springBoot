@@ -1,5 +1,5 @@
 
-var dbmotion = angular.module('dbmotion', ['ui.router','ngFileUpload','ui.select', 'ngSanitize', 'google.places']);
+var dbmotion = angular.module('dbmotion', ['ui.router','720kb.datepicker','ui.select', 'ngSanitize',]);
 
 
 
@@ -22,11 +22,6 @@ dbmotion.config(function($stateProvider, $urlRouterProvider) {
             controller:'oneEmployeeController',
             templateUrl: "views/employee.html"
         })
-        .state('addProfessional', {
-            url: "/addpro",
-            controller:'addProController',
-            templateUrl: "views/addpro.html"
-        })
 
 });
 
@@ -37,23 +32,6 @@ dbmotion.controller('leftMenuController',  function($scope,$http, globalService,
 
 
 dbmotion.controller('modalController', function($scope, $http) {
-//			$scope.pro = {};
-//			$scope.pro.companyinfo = {};
-//			$scope.pro.contactinfo = {};
-//			$scope.pro.geo = {};
-//			$scope.pro.credit = {};
-//
-//			$scope.addpro = function() {
-//				$http.post('/professionals/',$scope.pro)
-//				.then(function(data){
-//					if (data.data.status === 'Ok'){
-//
-//					}else{
-//
-//					}
-//				}, function(err){
-//
-//				});
-//			}
+
 });
 

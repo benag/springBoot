@@ -7,9 +7,13 @@ angular.module('dbmotion').controller('addModalController', ['$scope', '$locatio
         $scope.user.firstName = '';
         $scope.user.lastName = '';
         $scope.selectedWorker = '';
+        $scope.workerType = 'Select Worker Type';
+
+
         $scope.$on('showAddModal', function(data,events){
            $('#addModal').modal('toggle');
         });
+
         $scope.addWorker = function(){
             if($scope.selectedWorker === 'Manager'){
                 $scope.addManager();
@@ -18,6 +22,7 @@ angular.module('dbmotion').controller('addModalController', ['$scope', '$locatio
             }
         }
         $scope.chooseWorker = function(worker){
+            $scope.workerType = worker;
             $scope.selectedWorker = worker;
         }
         $scope.addManager = function(){

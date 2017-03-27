@@ -10,14 +10,14 @@
         </div>
         <div class="col-md-9 col-md-offset-1">
             <div>
-                <span>Name:</span><span>{{employee.firstName}}</span><span class="last">{{employee.lastName}}</span>
+                <span>Name:</span><span class="first">{{employee.firstName}}</span><span class="last">{{employee.lastName}}</span>
             </div>
             <div>
-                <span>Position:</span><span class="position">{{employee.position}}</span>
+                <span>Position:</span><span class="first">{{employee.position}}</span>
             </div>
             <hr class="hr">
             <div ng-show="employee.boss">
-                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span> <span ng-click="sendReport()" class="btn btn-primary">Report</span>
+                <span>Manager:</span><span class="first">{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span> <span ng-click="sendReport()" class="btn btn-primary first">Report</span>
             </div>
 
         </div>
@@ -32,6 +32,14 @@
 
         </div>
     </div>
+    <div ng-show="employee.position=='manager'" class="row reports-row">
+        <div>My Reports:</div>
+        <div class="task-box">
+            <div ng-repeat="report in employee.reports track by $index">
+                <span>{{report.text}}</span>
+            </div>
+        </div>
+    </div>
     <div class="row subordinate-row">
         <div>
             <span>My subordinates</span>
@@ -39,7 +47,10 @@
         </div>
         <div class="subordinate-box">
             <div ng-repeat="sub in employee.employees track by $index">
-                </span><span>{{sub.firstName}}</span><span>{{sub.lastName}}</span><span>{{sub.position}}</span> <span><button ng-click="assign($index)" class="btn btn-primary">Assign Task</button></span>
+                <div class="sub">
+                    <span class="first">{{sub.firstName}}</span><span class="first">{{sub.lastName}}</span><span class="first">{{sub.position}}</span> <span class="first"><button ng-click="assign($index)" class="btn btn-primary">Assign Task</button></span>
+                </div>
+
             </div>
         </div>
 

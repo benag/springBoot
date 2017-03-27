@@ -960,6 +960,14 @@ a:hover {
     padding-left:50px;
     padding-right:50px;
 }
+.reports-row{
+    margin-top:50px;
+    margin-left:50px;
+    padding-top:15px;
+    padding-left:50px;
+    padding-right:50px;
+
+}
 .subordinate-row{
     margin-top:50px;
     margin-left:50px;
@@ -995,4 +1003,13 @@ a:hover {
 }
 .add-select{
     margin-top:20px;
+}
+.first{
+    margin-left:15px;
+}
+.last{
+    margin-left:15px;
+}
+.sub{
+    margin-top:25px;
 }

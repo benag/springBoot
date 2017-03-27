@@ -65,8 +65,7 @@
 	<script src="../bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 	<script src="../bower_components/angular-ui-select/dist/select.min.js"></script>
 	<script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC--VeiH2ks0Iect-fWvmEqjPHrCwYfSBU"></script>
-	<script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+	<script src="../bower_components/angularjs-datepicker/dist/angular-datepicker.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers/header.controller.js"></script>
 	<script src="js/controllers/login.controller.js"></script>
@@ -88,6 +87,9 @@
 				</div>
 				<div class="modal-body">
 					<textarea cols="50" rows="5" placeholder="Task text" class="form-control" ng-model="taskText"> </textarea>
+					<!--<datepicker>-->
+						<!--<input ng-model="dueDate" type="text"/>-->
+					<!--</datepicker>-->
 					<input class="form-control dueDte" type="text" ng-model="dueDate" placeholder="Due Date">
 
 
@@ -126,7 +128,7 @@
 				<div class="modal-body">
 					<div class="btn-group">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Select Worker Type <span class="caret"></span>
+							{{workerType}} <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
 							<li ng-click="chooseWorker('Manager')"><span>Manager</span></li>
@@ -140,7 +142,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" ng-click="addManager()" class="btn btn-primary" data-dismiss="modal">Add</button>
+					<button type="button" ng-click="addWorker()" class="btn btn-primary" data-dismiss="modal">Add</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
@@ -156,37 +158,37 @@
 				<div class="modal-body">
 					<div class="btn-group">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Select Subordinate Type <span class="caret"></span>
+							{{SelectSubordinateType }}<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
 							<li ng-click="chooseSubWorker('Manager')"><span>Manager</span></li>
-							<li ng-click="chooseSubWorker('Employee')"><span> Employee</span></li>
+							<li ng-click="chooseSubWorker('Employee')"><span>Employee</span></li>
 						</ul>
 					</div>
 					<br/>
 					<div ng-show="showManager" class="form-group add-select">
 						<div class="btn-group">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Manager <span class="caret"></span>
+								{{managerDropDown}} <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li ng-repeat="manager in managers track by $index" ng-click="chooseManager($index)"><a href="#">{{manager.firstName}}</a></li>
+								<li ng-repeat="manager in managers track by $index" ng-click="chooseManager($index)"><span>{{manager.firstName}}</span></li>
 							</ul>
 						</div>
 					</div>
 					<div ng-show="showEmployee" class="form-group add-select">
 						<div class="btn-group">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Employee <span class="caret"></span>
+								{{employeeDropDown}} <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li ng-repeat="employee in employees track by $index" ng-click="chooseEmployee($index)"><a href="#">{{employee.firstName}}</a></li>
+								<li ng-repeat="employee in employees track by $index" ng-click="chooseEmployee($index)"><span>{{employee.firstName}}</span></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" ng-click="addManager()" class="btn btn-primary" data-dismiss="modal">Add</button>
+					<button type="button" ng-click="addSubWorker()" class="btn btn-primary" data-dismiss="modal">Add</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
