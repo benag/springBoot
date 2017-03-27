@@ -16,8 +16,8 @@
                 <span>Position:</span><span class="position">{{employee.position}}</span>
             </div>
             <hr class="hr">
-            <div>
-                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span> <span class="btn btn-primary">Report</span>
+            <div ng-show="employee.boss">
+                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span> <span ng-click="sendReport()" class="btn btn-primary">Report</span>
             </div>
 
         </div>

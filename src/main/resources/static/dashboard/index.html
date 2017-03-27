@@ -106,11 +106,10 @@
 					<h4 class="modal-title">Create Report</h4>
 				</div>
 				<div class="modal-body">
-
-
+					<textarea cols="50" rows="5" placeholder="Task text" class="form-control" ng-model="reportText"> </textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" ng-click="assignTask()" class="btn btn-primary" data-dismiss="modal">Save</button>
+					<button type="button" ng-click="sendReport()" class="btn btn-primary" data-dismiss="modal">Save</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>

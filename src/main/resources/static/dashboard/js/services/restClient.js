@@ -24,7 +24,7 @@ dbmotion.factory('restClient',function($rootScope, $http, $q) {
             });
 
         }
-        var assignReport = function(employeeIndex, reportText) {
+        var sendReport = function(employeeIndex, reportText) {
             return $q(function(resolve, reject) {
                 $http.put('/api/employees/report',{employeeId:employeeIndex, reportText:reportText })
                 .then(function(data){
@@ -39,7 +39,7 @@ dbmotion.factory('restClient',function($rootScope, $http, $q) {
         return {
             getEmployees:  getEmployees,
             assignTask: assignTask,
-            assignReport: assignReport
+            sendReport: sendReport
         }
 
 
