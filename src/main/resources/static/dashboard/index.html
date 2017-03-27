@@ -68,7 +68,6 @@
 	<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC--VeiH2ks0Iect-fWvmEqjPHrCwYfSBU"></script>
 	<script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
 	<script src="js/app.js"></script>
-	<script src="js/controllers/addPro.controller.js"></script>
 	<script src="js/controllers/header.controller.js"></script>
 	<script src="js/controllers/login.controller.js"></script>
 	<script src="js/controllers/employees.controller.js"></script>
@@ -76,6 +75,7 @@
 	<script src="js/controllers/taskModalController.js"></script>
 	<script src="js/controllers/reportModalController.js"></script>
 	<script src="js/controllers/addModalController.js"></script>
+	<script src="js/controllers/subordinateModalController.js"></script>
 	<script src="js/services/restClient.js"></script>
 	<script src="js/services/global.service.js"></script>
 
@@ -124,10 +124,65 @@
 					<h4 class="modal-title">Add Manger</h4>
 				</div>
 				<div class="modal-body">
-
-					<div class="form-group">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Select Worker Type <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-click="chooseWorker('Manager')"><span>Manager</span></li>
+							<li ng-click="chooseWorker('Employee')"><span>Employee</span></li>
+						</ul>
+					</div>
+					<br/>
+					<div class="form-group add-select">
 						<input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name"><br/>
 						<input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" ng-click="addManager()" class="btn btn-primary" data-dismiss="modal">Add</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="subordinateModal" class="modal fade" ng-controller="subordinateModalController" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Add Subordinate</h4>
+				</div>
+				<div class="modal-body">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Select Subordinate Type <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-click="chooseSubWorker('Manager')"><span>Manager</span></li>
+							<li ng-click="chooseSubWorker('Employee')"><span> Employee</span></li>
+						</ul>
+					</div>
+					<br/>
+					<div ng-show="showManager" class="form-group add-select">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Manager <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li ng-repeat="manager in managers track by $index" ng-click="chooseManager($index)"><a href="#">{{manager.firstName}}</a></li>
+							</ul>
+						</div>
+					</div>
+					<div ng-show="showEmployee" class="form-group add-select">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Employee <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li ng-repeat="employee in employees track by $index" ng-click="chooseEmployee($index)"><a href="#">{{employee.firstName}}</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">

@@ -35,7 +35,7 @@
     <div class="row subordinate-row">
         <div>
             <span>My subordinates</span>
-            <span><button class="btn btn-primary">Add Subordinate</button></span>
+            <span><button ng-click="addSubordinate()" class="btn btn-primary">Add Subordinate</button></span>
         </div>
         <div class="subordinate-box">
             <div ng-repeat="sub in employee.employees track by $index">

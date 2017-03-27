@@ -12,6 +12,10 @@ dbmotion.controller('oneEmployeeController', function($scope, $http, $state, glo
         $rootScope.$broadcast('showReportModal',{bossId: bossId})
      }
 
+     $scope.addSubordinate = function(){
+        $rootScope.$broadcast('showSubordinateModal');
+     }
+
     $scope.back = function(){
         $state.go('employees');
     }

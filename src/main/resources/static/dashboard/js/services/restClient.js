@@ -60,12 +60,53 @@ dbmotion.factory('restClient',function($rootScope, $http, $q) {
             });
 
         }
+        var addEmployee = function(firstName, lastName) {
+            return $q(function(resolve, reject) {
+                $http.post('/api/employees/createEmployee',{firstName:firstName, lastName:lastName, position: 'employee'})
+                .then(function(data){
+                    console.log(data.data);
+                    resolve(data.data);
+                }, function(err){
+                    reject(data.data);
+                });
+            });
+
+        }
+         var addSubordinateManager = function(mangerId, subordinateId) {
+            return $q(function(resolve, reject) {
+                $http.put('/api/employees/manager',{addToId:mangerId, addId:subordinateId})
+                .then(function(data){
+                    console.log(data.data);
+                    resolve(data.data);
+                }, function(err){
+                    reject(data.data);
+                });
+            });
+
+         }
+         var addSubordinateEmployee = function(mangerId, subordinateId) {
+            return $q(function(resolve, reject) {
+                $http.put('/api/employees/employee',{addToId:mangerId, addId:subordinateId})
+                .then(function(data){
+                    console.log(data.data);
+                    resolve(data.data);
+                }, function(err){
+                    reject(data.data);
+                });
+            });
+
+         }
         return {
+            // Public Methods
+
             getEmployees:  getEmployees,
             assignTask: assignTask,
             sendReport: sendReport,
             getBoss: getBoss,
-            addManager: addManager
+            addManager: addManager,
+            addEmployee: addEmployee,
+            addSubordinateManager: addSubordinateManager,
+            addSubordinateEmployee: addSubordinateEmployee
         }
 
 });
