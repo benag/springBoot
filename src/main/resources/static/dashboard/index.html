@@ -75,6 +75,7 @@
 	<script src="js/controllers/oneEmployee.controller.js"></script>
 	<script src="js/controllers/taskModalController.js"></script>
 	<script src="js/controllers/reportModalController.js"></script>
+	<script src="js/controllers/addModalController.js"></script>
 	<script src="js/services/restClient.js"></script>
 	<script src="js/services/global.service.js"></script>
 
@@ -110,6 +111,27 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" ng-click="sendReport()" class="btn btn-primary" data-dismiss="modal">Save</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="addModal" class="modal fade" ng-controller="addModalController" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Add Manger</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<input type="text" class="form-control" ng-model="user.firstName" placeholder="First Name"><br/>
+						<input type="text" class="form-control" ng-model="user.lastName" placeholder="Last Name">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" ng-click="addManager()" class="btn btn-primary" data-dismiss="modal">Add</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>

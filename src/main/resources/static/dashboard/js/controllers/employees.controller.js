@@ -1,12 +1,12 @@
-dbmotion.controller('employeesController', function($scope, $http,$state, $q, globalService, restClient) {
+dbmotion.controller('employeesController', function($scope, $http,$state, $q, globalService, restClient, $rootScope) {
+
     $scope.page = 0;
     $scope.limit = 10;
-    $scope.pros =[];
-
+    $scope.showAdd = true;
     $scope.nextButton = false;
 
-    $scope.add = function(){
-
+    $scope.addManager = function(){
+        $rootScope.$broadcast('showAddModal');
     };
 
     $scope.oneEmployee = function(index){
@@ -27,9 +27,13 @@ dbmotion.controller('employeesController', function($scope, $http,$state, $q, gl
         restClient.getEmployees($scope.page,$scope.limit)
         .then(function(data){
             $scope.$applyAsync(function(){
-                $scope.employees = data;
-                if (data.length >= 10){
-                    $scope.nextButton = true;
+                if (!data){
+                    $scope.showAdd = true;
+                }else{
+                    $scope.employees = data;
+                    if (data.length >= 10){
+                        $scope.nextButton = true;
+                    }
                 }
             })
         }).catch(function(err){

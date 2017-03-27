@@ -81,8 +81,30 @@ public class EmployeeController {
         manager.addEmployee(subordinate);
         System.out.println(manager.toString());
         Employee updatedEmployee = employeeDao.save(subordinate);
+        Manager updatedManger = managerDao.save(manager);
         System.out.println(updatedEmployee.toString());
         return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
+    }
+    @RequestMapping(value="/manager", method=RequestMethod.PUT)
+    public ResponseEntity<Manager> addManager(@RequestBody Map<String, String> payload) throws java.io.IOException {
+        String addToEmployeeId = payload.get("addToId");
+        String addEmployeeId = payload.get("addId");
+        System.out.println(addToEmployeeId);
+        System.out.println(addEmployeeId);
+        Manager manager = managerDao.findOne(Long.valueOf(addToEmployeeId));
+        if(manager == null) {
+            System.out.println("not found");
+            return new ResponseEntity<Manager>(HttpStatus.NOT_FOUND);
+        }
+        System.out.println("found");
+        Manager subordinate = managerDao.findOne(Long.valueOf(addEmployeeId));
+        subordinate.setBoss(manager);
+        manager.addEmployee(subordinate);
+        System.out.println(manager.toString());
+        Manager updatedEmployee = managerDao.save(subordinate);
+        Manager updatedManger = managerDao.save(manager);
+        System.out.println(updatedEmployee.toString());
+        return new ResponseEntity<Manager>(updatedManger, HttpStatus.OK);
     }
 
     @RequestMapping(value="/task", method=RequestMethod.PUT)
@@ -121,20 +143,16 @@ public class EmployeeController {
         System.out.println(updatedEmployee.toString());
         return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
     }
+    @RequestMapping(value="/{id}/manager", method=RequestMethod.GET)
+    public ResponseEntity<Manager> getEmployeeManagerById(@PathVariable("id") String id) {
+        Employee emp = employeeDao.findOne(Long.valueOf(id));
+        if(emp == null) {
+            return new ResponseEntity<Manager>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<Manager>(emp.getBoss(), HttpStatus.OK);
+        }
+    }
 
-//    @RequestMapping( method=RequestMethod.PUT)
-//    public void updateEmployee(@Valid @RequestBody Employee emp) {
-//        System.out.println(emp.toString());
-////        Todo todoData = todoRepository.findOne(id);
-////        if(todoData == null) {
-////            return new ResponseEntity<Todo>(HttpStatus.NOT_FOUND);
-////        }
-////        todoData.setTitle(todo.getTitle());
-////        todoData.setCompleted(todo.getCompleted());
-////        Todo updatedTodo = todoRepository.save(todoData);
-//        //return new ResponseEntity<Todo>(updatedTodo, HttpStatus.OK);
-////        return new ResponseEntity<Employee>(null,HttpStatus.OK);
-//    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Map login(@RequestBody Map<String, Object> payload) throws java.io.IOException {
