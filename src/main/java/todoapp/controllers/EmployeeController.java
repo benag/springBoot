@@ -18,35 +18,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import todoapp.models.Employee;
-import todoapp.classes.Task;
-import todoapp.classes.Report;
 import todoapp.models.Manager;
-import todoapp.repositories.EmployeeRepository;
-import org.apache.commons.io.IOUtils;
-import javax.servlet.http.HttpServletRequest;
-
+import todoapp.models.Task;
+import todoapp.models.Report;
+import todoapp.repositories.EmployeeDao;
+import todoapp.repositories.ManagerDao;
 
 
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
+
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    private ManagerDao managerDao;
 
     @RequestMapping(method=RequestMethod.GET)
     public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+        return (List<Employee>) employeeDao.findAll();
     }
 
-    @RequestMapping(method=RequestMethod.POST)
+    @RequestMapping(value="/createEmployee", method=RequestMethod.POST)
     public Employee createEmployee(@Valid @RequestBody Employee emp) {
-        return employeeRepository.save(emp);
+        return employeeDao.save(emp);
     }
+
+    @RequestMapping(value="/createManager", method=RequestMethod.POST)
+    public Manager createManager(@Valid @RequestBody Manager emp) {
+        return managerDao.save(emp);
+    }
+
 
     @RequestMapping(value="{id}", method=RequestMethod.GET)
     public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") String id) {
-        Employee emp = employeeRepository.findOne(id);
+        Employee emp = employeeDao.findOne(Long.valueOf(id));
         if(emp == null) {
             return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
         } else {
@@ -60,17 +68,19 @@ public class EmployeeController {
         String addEmployeeId = payload.get("addId");
         System.out.println(addToEmployeeId);
         System.out.println(addEmployeeId);
-        Employee employeeData = employeeRepository.findOne(addToEmployeeId);
-        if(employeeData == null) {
+        Manager manager = managerDao.findOne(Long.valueOf(addToEmployeeId));
+        if(manager == null) {
             System.out.println("not found");
             return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
         }
+
         System.out.println("found");
-        Employee subordinate = employeeRepository.findOne(addEmployeeId);
-        subordinate.setBoss(employeeData);
-        employeeData.addEmployee(subordinate);
-        System.out.println(employeeData.toString());
-        Employee updatedEmployee = employeeRepository.save(employeeData);
+
+        Employee subordinate = employeeDao.findOne(Long.valueOf(addEmployeeId));
+        subordinate.setBoss(manager);
+        manager.addEmployee(subordinate);
+        System.out.println(manager.toString());
+        Employee updatedEmployee = employeeDao.save(subordinate);
         System.out.println(updatedEmployee.toString());
         return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
     }
@@ -82,32 +92,32 @@ public class EmployeeController {
         String dueDate = (String)payload.get("dueDate");
         Task task = new Task(taskText,dueDate, null);
         System.out.println(task.toString());
-        Employee employeeData = employeeRepository.findOne(employeeId);
+        Employee employeeData = employeeDao.findOne(Long.valueOf(employeeId));
         if(employeeData == null) {
             System.out.println("not found employee");
             return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
         }
         employeeData.addTask(task);
         System.out.println(employeeData.toString());
-        Employee updatedEmployee = employeeRepository.save(employeeData);
+        Employee updatedEmployee = employeeDao.save(employeeData);
         System.out.println(updatedEmployee.toString());
         return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
     }
 
     @RequestMapping(value="/report", method=RequestMethod.PUT)
     public ResponseEntity<Employee> addReport(@RequestBody Map<String, String> payload) throws java.io.IOException {
-        String bossId = payload.get("bossId");
+        String bossId = payload.get("employeeId");
         String reportText = payload.get("reportText");
         Report report = new Report(reportText);
         System.out.println(report.toString());
-        Employee bossData = employeeRepository.findOne(bossId);
-        if(bossData == null) {
+        Employee employeeData = employeeDao.findOne(Long.valueOf(bossId));
+        if(employeeData == null) {
             System.out.println("not found employee");
             return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
         }
-        bossData.addReport(report);
-        System.out.println(bossData.toString());
-        Employee updatedEmployee = employeeRepository.save(bossData);
+        employeeData.addReport(report);
+        System.out.println(employeeData.toString());
+        Employee updatedEmployee = employeeDao.save(employeeData);
         System.out.println(updatedEmployee.toString());
         return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
     }

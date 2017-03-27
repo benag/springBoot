@@ -17,7 +17,7 @@
             </div>
             <hr class="hr">
             <div>
-                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span>
+                <span>Manager:</span><span>{{employee.boss.firstName}}</span><span class="last">{{employee.boss.lastName}}</span> <span class="btn btn-primary">Report</span>
             </div>
 
         </div>
@@ -32,13 +32,16 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row subordinate-row">
         <div>
             <span>My subordinates</span>
             <span><button class="btn btn-primary">Add Subordinate</button></span>
         </div>
-        <div ng-repeat="sub in employees track by $index">
-            <span>{{sub.firstName}}</span><span>{{sub.lastName}}</span><span>{{sub.position}}</span> <span><button class="btn btn-primary">Assign Task</button></span>
+        <div class="subordinate-box">
+            <div ng-repeat="sub in employee.employees track by $index">
+                </span><span>{{sub.firstName}}</span><span>{{sub.lastName}}</span><span>{{sub.position}}</span> <span><button ng-click="assign($index)" class="btn btn-primary">Assign Task</button></span>
+            </div>
         </div>
+
     </div>
 </div>

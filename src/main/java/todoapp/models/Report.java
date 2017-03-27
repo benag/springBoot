@@ -1,10 +1,22 @@
-package todoapp.classes;
+package todoapp.models;
 
+import javax.persistence.*;
 import java.util.Date;
 /**
  * Created by ben on 25/03/17.
  */
+@Entity
+@Table(name = "report")
 public class Report {
+
+    @Id
+    @Column(name = "reportId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    private String text;
+
+    private Date createdAt = new Date();
 
     public Report() {}
 
@@ -12,9 +24,13 @@ public class Report {
         this.text = text;
     }
 
-    private String text;
+    public long getId() {
+        return id;
+    }
 
-    private Date createdAt = new Date();
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getText() { return this.text;}
 

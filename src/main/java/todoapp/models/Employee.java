@@ -1,52 +1,66 @@
 package todoapp.models;
-import todoapp.classes.Worker;
-import todoapp.classes.Task;
-import todoapp.classes.Report;
-import todoapp.classes.Worker;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ben on 24/03/17.
  */
-@Document(collection="employees")
-public class Employee  {
+@Entity
+@Table(name = "employee")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorValue(value="employee")
+public class Employee implements Worker{
 
     @Id
-    private String id;
+    @Column(name = "employeeId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected long id;
 
-//    @NotBlank
-//    @Size(max=250)
-//    @Indexed(unique=true)
+    @ManyToOne(targetEntity = Manager.class)
+    @JsonBackReference
+    protected Manager boss;
 
-    private Employee boss;
+    protected String firstName;
 
-    private String firstName;
+    protected String position;
 
-    private String position;
+    @OneToMany(targetEntity = Task.class, cascade = CascadeType.ALL)
+    protected List<Task> tasks = new ArrayList<>();
 
-    private ArrayList<Task>  tasks = new ArrayList<>();
+    @OneToMany(targetEntity = Report.class, cascade = CascadeType.ALL)
+    protected List<Report> reports = new ArrayList<>();
 
-    private ArrayList<Report>  reports = new ArrayList<Report>();
+    protected String lastName;
 
-    private ArrayList<Employee> employees = new ArrayList<Employee>();
+    protected Date createdAt = new Date();
 
-    private String lastName;
+    @Column(insertable = false, updatable = false)
+    protected String type;
 
-    private Date createdAt = new Date();
 
-    public String getId() {
+    public Employee(){
+    }
+
+    public Employee(Employee e){
+        this.position = e.position;
+        this.firstName = e.firstName;
+        this.lastName = e.lastName;
+        this.boss = e.boss;
+        this.reports.addAll(e.reports);
+        this.tasks.addAll(e.tasks);
+        this.createdAt = e.createdAt;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,15 +80,9 @@ public class Employee  {
 
     public void addReport (Report r) {this.reports.add(r);}
 
-    public void addEmployee(Employee emp) { this.employees.add(emp);}
+    public Manager getBoss() { return this.boss;}
 
-    public List<Employee> getEmployees() { return this.employees;}
-
-    public void setEmployees(List<Employee> emp) { this.employees = (ArrayList)emp;}
-
-    public Employee getBoss() { return this.boss;}
-
-    public void setBoss (Employee emp){ this.boss = emp;}
+    public void setBoss (Manager emp){ this.boss = emp;}
 
     public void setTasks (ArrayList<Task> t){ this.tasks = t;}
 
@@ -84,17 +92,18 @@ public class Employee  {
 
     public List<Report> getReports() { return this.reports;}
 
-    @Override
-    public String toString() {
-        String employeesString = "";
-        Integer length = (Integer)employees.size();
-        String lengthS = new String(length.toString());
-        for (Employee e : employees) {
-            employeesString = employeesString + e.toString();
-        }
-        return String.format(
-                "Todo[id=%s, firstName='%s', position='%s', lengthS='%s', employees='%s']",
-                id, firstName, position, lengthS, employeesString);
+    public String getType() {
+        return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Todo[id=%s, firstName='%s', position='%s']",
+                getId(), getFirstName(), getPosition());
+    }
 }

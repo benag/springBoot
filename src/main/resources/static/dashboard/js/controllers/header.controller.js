@@ -7,8 +7,8 @@ dbmotion.controller('headerController',  function($scope,$http, globalService, $
         globalService.user = {};
         $state.go('login');
     };
-    $scope.goPro = function() {
-        if (globalService.login) $state.go('professionals');
+    $scope.goEmployees = function() {
+        $state.go('employees');
     };
 
 //			if (globalService.user.firstName === undefined || globalService.user.firstName === ''){

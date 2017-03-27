@@ -1,30 +1,30 @@
-package todoapp.classes;
+package todoapp.models;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.text.*;
 
 /**
  * Created by ben on 24/03/17.
  */
+
+@Entity
+@Table(name = "task")
 public class Task {
 
+    @Id
+    @Column(name = "taskId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    private String taskText = "";
+
+    private Date dueDate;
+
+    private Date assignDate = new Date();
+
+
     public Task () {}
-
-    public Task(String text, String dateStr, String assignDate){
-        try{
-            this.taskText = text;
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-            Date dueDate = (Date)formatter.parse(dateStr);
-            this.dueDate = dueDate;
-            if (assignDate != null){
-                Date assign  = (Date)formatter.parse(assignDate);
-                this.assignDate = assign;
-            }
-        }catch(java.text.ParseException e){
-            System.out.println(e);
-        }
-
-    }
 
     public Task(Task t){
         this.taskText = t.taskText;
@@ -32,11 +32,30 @@ public class Task {
         this.assignDate = t.assignDate;
     }
 
-    private String taskText = "";
+    public Task(String text, String dateStr, String assignDate){
+        try{
+            this.taskText = text;
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            Date dueDate = formatter.parse(dateStr);
+            this.dueDate = dueDate;
+            if (assignDate != null){
+                Date assign  = formatter.parse(assignDate);
+                this.assignDate = assign;
+            }
+        }
+        catch(java.text.ParseException e){
+            System.out.println(e);
+        }
 
-    private Date dueDate;
+    }
 
-    private Date assignDate = new Date();
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public String getTaskText() {return this.taskText;}
 
@@ -52,9 +71,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format(
-                "Task[taskText='%s', dueDate='%s', assignDate ='%s']",
-                taskText, dueDate.toString(), assignDate.toString());
+        return String.format("Task[taskText='%s', dueDate='%s', assignDate ='%s']", taskText, dueDate.toString(), assignDate.toString());
     }
 
 }

@@ -44,7 +44,7 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li><a ng-click="goPro()"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg>Employees</a></li>
+			<li><a ng-click="goEmployees()"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg>Employees</a></li>
 			<li role="presentation" class="divider"></li>
 
 		</ul>
@@ -67,16 +67,55 @@
 	<script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC--VeiH2ks0Iect-fWvmEqjPHrCwYfSBU"></script>
 	<script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-
-
 	<script src="js/app.js"></script>
 	<script src="js/controllers/addPro.controller.js"></script>
 	<script src="js/controllers/header.controller.js"></script>
 	<script src="js/controllers/login.controller.js"></script>
 	<script src="js/controllers/employees.controller.js"></script>
 	<script src="js/controllers/oneEmployee.controller.js"></script>
+	<script src="js/controllers/taskModalController.js"></script>
+	<script src="js/controllers/reportModalController.js"></script>
+	<script src="js/services/restClient.js"></script>
 	<script src="js/services/global.service.js"></script>
-	<script src="js/services/uploadFile.service.js"></script>
+
+	<div id="taskModal" class="modal fade" ng-controller="taskModalController" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Create Task</h4>
+				</div>
+				<div class="modal-body">
+					<textarea cols="50" rows="5" placeholder="Task text" class="form-control" ng-model="taskText"> </textarea>
+					<input class="form-control dueDte" type="text" ng-model="dueDate" placeholder="Due Date">
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" ng-click="assignTask()" class="btn btn-primary" data-dismiss="modal">Save</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="reportModal" class="modal fade" ng-controller="reportModalController" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Create Report</h4>
+				</div>
+				<div class="modal-body">
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" ng-click="assignTask()" class="btn btn-primary" data-dismiss="modal">Save</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 

@@ -960,6 +960,20 @@ a:hover {
     padding-left:50px;
     padding-right:50px;
 }
+.subordinate-row{
+    margin-top:50px;
+    margin-left:50px;
+    padding-top:15px;
+    padding-left:50px;
+    padding-right:50px;
+}
+.subordinate-box {
+    border:1px solid black;
+    min-height:200px;
+    width:100%;
+    margin-top:10px;
+    padding:25px;
+}
 .task-box{
     border:1px solid black;
     min-height:200px;
@@ -970,4 +984,12 @@ a:hover {
 }
 .hr{
     background-color:black;
+}
+.report{
+    background-color:blue;
+    width:100px;
+    height50px;
+}
+.dueDte{
+    margin-top:15px;
 }
